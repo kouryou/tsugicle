@@ -46,19 +46,6 @@ class TwitterController extends AppController
         );
         $access_token = $connection->oauth('oauth/access_token',
             array('oauth_verifier' => $oauth_verifier));
-
-        // $access_tokenにユーザIDが設定されているのでユーザを識別するために使用できる
-        // $access_token['user_id']
-        // Twitterの場合は、メールアドレスが取得できない。
-        // アクセストークンを取得する
-        $connection = new TwitterOAuth(
-            $consumer_key,
-            $consumer_secret,
-            $access_token['oauth_token'],
-            $access_token['oauth_token_secret']
-        );
-        $user = $connection->get("account/verify_credentials");
-
         $this->Session->write('access_token', $access_token);
         return $this->redirect(['controller' => 'top']);
     }
