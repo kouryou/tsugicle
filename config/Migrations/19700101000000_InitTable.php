@@ -15,6 +15,8 @@ class InitTable extends AbstractMigration
         $this->table('user', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid')
             ->addColumn('screen_name', 'string')
+            ->addColumn('oauth_token', 'string')
+            ->addColumn('oauth_token_secret', 'string')
             ->addColumn('updated_at', 'datetime')
             ->addColumn('created_at', 'datetime')
             ->create();
