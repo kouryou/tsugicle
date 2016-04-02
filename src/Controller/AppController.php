@@ -11,6 +11,7 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->Session = $this->request->session();
     }
     public function beforeRender(Event $event)
     {
