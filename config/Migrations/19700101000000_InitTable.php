@@ -20,5 +20,12 @@ class InitTable extends AbstractMigration
             ->addColumn('updated_at', 'datetime')
             ->addColumn('created_at', 'datetime')
             ->create();
+        $this->table('board')
+            ->addColumn('user_id', 'uuid')
+            ->addColumn('title', 'string')
+            ->addColumn('description', 'string')
+            ->addColumn('updated_at', 'datetime')
+            ->addColumn('created_at', 'datetime')
+            ->create();
     }
 }
