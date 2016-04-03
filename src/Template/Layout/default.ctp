@@ -16,7 +16,6 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <nav class="navbar navbar-default">
           <div class="container-fluid">
@@ -27,8 +26,8 @@
               <ul class="nav navbar-nav">
                 <li class="active"><a href="<?php echo $this->Url->build(['controller'=>'Top', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
                 <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿する</a></li>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>自分の投稿</a></li>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿一覧</a></li>
+                <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>自分の投稿</a></li>
+                <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>投稿一覧</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
               <?php if(isset($user_id)): ?>
@@ -46,11 +45,12 @@
             <ul class="list-group">
               <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Top', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
               <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿する</a></li>
-              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>自分の投稿</a></li>
-              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿一覧</a></li>
+              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>自分の投稿</a></li>
+              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>投稿一覧</a></li>
             </ul>
           </div>
           <div class="col-md-9">
+            <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
           </div>
          </div>

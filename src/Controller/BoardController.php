@@ -24,17 +24,27 @@ class BoardController extends AppController
         if (!$this->Session->read('access_token.user_id')){
             return $this->redirect(['controller' => 'top']);
         }
-
         $boards = TableRegistry::get('Board');
-        $boards->query()->insert(['title', 'user_id', 'description',
-        'updated_at', 'created_at'])
-            ->values([
-                'title' => $this->request->data['title'],
-                'user_id' => $this->Session->read('access_token.user_id'),
-                'description' => $this->request->data['description'],
-                'updated_at' => date('Y/m/d H:i:s'),
-                'created_at' => date('Y/m/d H:i:s')
-            ])->execute();
+        if(isset($this->request->data['id'])){
+            $boards->query()->update()
+                ->set(['title' => $this->request->data['title'],
+                    'description' => $this->request->data['description'],
+                    'updated_at' => date('Y/m/d H:i:s')])
+                ->where(['id' => $this->request->data['id']])
+                ->execute();
+            $this->Flash->set('更新しました', ['element' => 'success']);
+        }else{
+            $boards->query()->insert(['title', 'user_id', 'description',
+            'updated_at', 'created_at'])
+                ->values([
+                    'title' => $this->request->data['title'],
+                    'user_id' => $this->Session->read('access_token.user_id'),
+                    'description' => $this->request->data['description'],
+                    'updated_at' => date('Y/m/d H:i:s'),
+                    'created_at' => date('Y/m/d H:i:s')
+                ])->execute();
+            $this->Flash->set('作成しました', ['element' => 'success']);
+        }
         return $this->redirect(['controller' => 'board', 'action'=> 'view']);
     }
 
@@ -63,13 +73,23 @@ class BoardController extends AppController
         ]);
     }
 
-    public function edit()
+    public function edit($id = '')
     {
-
+        $boards = TableRegistry::get('Board');
+        $board = $boards->find()->where(['id' => $id])->first();
+        $this->set([
+            'user_id' => $this->Session->read('access_token.user_id'),
+            'screen_name' => $this->Session->read('access_token.screen_name'),
+            'board' => $board
+        ]);
+        $this->render('index');
     }
 
-    public function delete()
+    public function delete($id = '')
     {
-
+        $boards = TableRegistry::get('Board');
+        $this->Flash->set('削除しました', ['element' => 'success']);
+        $boards->query()->delete()->where(['id' => $id])->execute();
+        return $this->redirect(['controller' => 'board', 'action'=> 'view']);
     }
 }

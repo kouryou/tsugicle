@@ -5,8 +5,8 @@
       <?=$board->description ?>
     </div>
     <div class="panel-footer">
-      <a class="btn btn-default" href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'edit']); ?>" role="button">編集</a>
-      <a class="btn btn-danger" href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'delete']); ?>" role="button">削除</a>
+      <a class="btn btn-default" href="<?php echo $this->Url->build('/board/edit/' . $board->id); ?>" role="button">編集</a>
+      <a class="btn btn-danger" href="<?php echo $this->Url->build('/board/delete/' . $board->id); ?>" role="button">削除</a>
     </div>
   </div>
 <?php endforeach ?>
