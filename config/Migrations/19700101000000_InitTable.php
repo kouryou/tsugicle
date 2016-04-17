@@ -17,15 +17,33 @@ class InitTable extends AbstractMigration
             ->addColumn('screen_name', 'string')
             ->addColumn('oauth_token', 'string')
             ->addColumn('oauth_token_secret', 'string')
-            ->addColumn('updated_at', 'datetime')
-            ->addColumn('created_at', 'datetime')
+            ->addColumn('modefied', 'datetime')
+            ->addColumn('created', 'datetime')
             ->create();
+
+        $this->table('thread')
+            ->addColumn('user_id', 'uuid')
+            ->addColumn('genre_id', 'integer')
+            ->addColumn('title', 'string')
+            ->addColumn('good', 'boolean')
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
+            ->create();
+
         $this->table('board')
             ->addColumn('user_id', 'uuid')
-            ->addColumn('title', 'string')
+            ->addColumn('genre_id', 'integer')
+            ->addColumn('thread_id', 'integer')
+            ->addColumn('good', 'boolean')
             ->addColumn('description', 'string')
-            ->addColumn('updated_at', 'datetime')
-            ->addColumn('created_at', 'datetime')
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
+            ->create();
+
+        $this->table('thread')
+            ->addColumn('title', 'string')
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
             ->create();
     }
 }
