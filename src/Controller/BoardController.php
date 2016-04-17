@@ -5,7 +5,7 @@ use Cake\ORM\TableRegistry;
 
 class BoardController extends AppController
 {
-    public function index($a = '', $b = '')
+    public function index()
     {
         # ログインしていないときはTopに飛ばす
         if (!$this->Session->read('access_token.user_id')){
@@ -29,7 +29,7 @@ class BoardController extends AppController
             $boards->query()->update()
                 ->set(['title' => $this->request->data['title'],
                     'description' => $this->request->data['description'],
-                    'updated_at' => date('Y/m/d H:i:s')])
+                    'modified' => date('Y/m/d H:i:s')])
                 ->where(['id' => $this->request->data['id']])
                 ->execute();
             $this->Flash->set('更新しました', ['element' => 'success']);
@@ -40,8 +40,8 @@ class BoardController extends AppController
                     'title' => $this->request->data['title'],
                     'user_id' => $this->Session->read('access_token.user_id'),
                     'description' => $this->request->data['description'],
-                    'updated_at' => date('Y/m/d H:i:s'),
-                    'created_at' => date('Y/m/d H:i:s')
+                    'modified' => date('Y/m/d H:i:s'),
+                    'created' => date('Y/m/d H:i:s')
                 ])->execute();
             $this->Flash->set('作成しました', ['element' => 'success']);
         }

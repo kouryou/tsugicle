@@ -17,7 +17,7 @@ class InitTable extends AbstractMigration
             ->addColumn('screen_name', 'string')
             ->addColumn('oauth_token', 'string')
             ->addColumn('oauth_token_secret', 'string')
-            ->addColumn('modefied', 'datetime')
+            ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
             ->create();
 
@@ -35,6 +35,7 @@ class InitTable extends AbstractMigration
             ->addColumn('genre_id', 'integer')
             ->addColumn('thread_id', 'integer')
             ->addColumn('good', 'boolean')
+            ->addColumn('title', 'string')
             ->addColumn('description', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')

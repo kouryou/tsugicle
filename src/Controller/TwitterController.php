@@ -54,19 +54,19 @@ class TwitterController extends AppController
         if($users->find()->where(['id >' => $access_token['user_id']])){
             $users->query()->update()
                 ->set(['screen_name' => $access_token['screen_name'],
-                    'updated_at' => date('Y/m/d H:i:s')])
+                    'modified' => date('Y/m/d H:i:s')])
                 ->where(['id' => $access_token['user_id']])
                 ->execute();
         }else{
             $users->query()->insert(['id', 'screen_name', 'oauth_token',
-                'oauth_token_secret', 'updated_at', 'created_at'])
+                'oauth_token_secret', 'modefied', 'created'])
                 ->values([
                     'id' => $access_token['user_id'],
                     'screen_name' => $access_token['screen_name'],
                     'oauth_token' => $access_token['oauth_token'],
                     'oauth_token_secret' => $access_token['oauth_token_secret'],
-                    'updated_at' => date('Y/m/d H:i:s'),
-                    'created_at' => date('Y/m/d H:i:s')
+                    'modified' => date('Y/m/d H:i:s'),
+                    'created' => date('Y/m/d H:i:s')
                 ])->execute();
         }
         return $this->redirect(['controller' => 'top']);
