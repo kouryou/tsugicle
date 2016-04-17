@@ -40,7 +40,7 @@ class InitTable extends AbstractMigration
             ->addColumn('created', 'datetime')
             ->create();
 
-        $this->table('thread')
+        $this->table('genre')
             ->addColumn('title', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
