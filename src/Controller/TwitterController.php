@@ -49,7 +49,7 @@ class TwitterController extends AppController
             array('oauth_verifier' => $oauth_verifier));
         $this->Session->write('access_token', $access_token);
 
-        $users = TableRegistry::get('User');
+        $users = TableRegistry::get('Users');
         //ユーザーがあった場合はupdate
         if($users->find()->where(['id >' => $access_token['user_id']])){
             $users->query()->update()

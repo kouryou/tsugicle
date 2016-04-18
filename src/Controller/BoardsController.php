@@ -3,7 +3,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 
-class BoardController extends AppController
+class BoardsController extends AppController
 {
     public function index()
     {
@@ -24,7 +24,7 @@ class BoardController extends AppController
         if (!$this->Session->read('access_token.user_id')){
             return $this->redirect(['controller' => 'top']);
         }
-        $boards = TableRegistry::get('Board');
+        $boards = TableRegistry::get('Boards');
         if(isset($this->request->data['id'])){
             $boards->query()->update()
                 ->set(['title' => $this->request->data['title'],
@@ -35,7 +35,7 @@ class BoardController extends AppController
             $this->Flash->set('更新しました', ['element' => 'success']);
         }else{
             $boards->query()->insert(['title', 'user_id', 'description',
-            'updated_at', 'created_at'])
+            'modified', 'created'])
                 ->values([
                     'title' => $this->request->data['title'],
                     'user_id' => $this->Session->read('access_token.user_id'),
@@ -45,7 +45,7 @@ class BoardController extends AppController
                 ])->execute();
             $this->Flash->set('作成しました', ['element' => 'success']);
         }
-        return $this->redirect(['controller' => 'board', 'action'=> 'view']);
+        return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
 
     public function my()
@@ -53,7 +53,7 @@ class BoardController extends AppController
         if (!$this->Session->read('access_token.user_id')){
             return $this->redirect(['controller' => 'top']);
         }
-        $boards = TableRegistry::get('Board');
+        $boards = TableRegistry::get('Boards');
         $boards = $boards->find()->where(['user_id' => $this->Session->read('access_token.user_id')]);
         $this->set([
             'boards' => $boards,
@@ -64,7 +64,7 @@ class BoardController extends AppController
 
     public function view()
     {
-        $boards = TableRegistry::get('Board');
+        $boards = TableRegistry::get('Boards');
         $boards = $boards->find();
         $this->set([
             'boards' => $boards,
@@ -75,7 +75,7 @@ class BoardController extends AppController
 
     public function edit($id = '')
     {
-        $boards = TableRegistry::get('Board');
+        $boards = TableRegistry::get('Boards');
         $board = $boards->find()->where(['id' => $id])->first();
         $this->set([
             'user_id' => $this->Session->read('access_token.user_id'),
@@ -87,9 +87,9 @@ class BoardController extends AppController
 
     public function delete($id = '')
     {
-        $boards = TableRegistry::get('Board');
+        $boards = TableRegistry::get('Boards');
         $this->Flash->set('削除しました', ['element' => 'success']);
         $boards->query()->delete()->where(['id' => $id])->execute();
-        return $this->redirect(['controller' => 'board', 'action'=> 'view']);
+        return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
 }

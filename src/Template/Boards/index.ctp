@@ -4,7 +4,7 @@
 <?php else: ?>
 <h1>新規投稿</h1>
 <?php endif; ?>
-<form class="form-horizontal" method="post" action="<?php echo $this->Url->build('/board/add/'); ?>">
+<form class="form-horizontal" method="post" action="<?php echo $this->Url->build('/boards/add/'); ?>">
   <div class="form-group">
     <label for="title" class="col-sm-2 control-label">タイトル</label>
     <div class="col-sm-10">

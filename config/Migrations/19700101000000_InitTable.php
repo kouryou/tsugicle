@@ -12,7 +12,7 @@ class InitTable extends AbstractMigration
      */
     public function change()
     {
-        $this->table('user', ['id' => false, 'primary_key' => ['id']])
+        $this->table('users', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid')
             ->addColumn('screen_name', 'string')
             ->addColumn('oauth_token', 'string')
@@ -21,8 +21,9 @@ class InitTable extends AbstractMigration
             ->addColumn('created', 'datetime')
             ->create();
 
-        $this->table('thread')
+        $this->table('threads')
             ->addColumn('user_id', 'uuid')
+            ->addColumn('screen_name', 'string')
             ->addColumn('genre_id', 'integer')
             ->addColumn('title', 'string')
             ->addColumn('good', 'boolean')
@@ -30,8 +31,9 @@ class InitTable extends AbstractMigration
             ->addColumn('created', 'datetime')
             ->create();
 
-        $this->table('board')
+        $this->table('boards')
             ->addColumn('user_id', 'uuid')
+            ->addColumn('screen_name', 'string')
             ->addColumn('genre_id', 'integer')
             ->addColumn('thread_id', 'integer')
             ->addColumn('good', 'boolean')
@@ -41,7 +43,7 @@ class InitTable extends AbstractMigration
             ->addColumn('created', 'datetime')
             ->create();
 
-        $this->table('genre')
+        $this->table('genres')
             ->addColumn('title', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
