@@ -20,21 +20,13 @@
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">掲示板</a>
+              <a class="navbar-brand" href="#">ツギクル</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="<?php echo $this->Url->build(['controller'=>'Top', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿する</a></li>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>自分の投稿</a></li>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>投稿一覧</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-              <?php if(isset($user_id)): ?>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'Twitter', 'action'=>'logout']); ?>">Twitterでログアウト</a></li>
-              <?php else: ?>
-                <li><a href="<?php echo $this->Url->build(['controller'=>'Twitter', 'action'=>'index']); ?>">Twitterでログイン</a></li>
-              <?php endif; ?>
+                <li><a href="<?php echo $this->Url->build(['controller'=>'Threads', 'action'=>'overallRanking']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>ランキング</a></li>
+                <li><a href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'allGenres']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>ジャンル</a></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div><!--/.container-fluid -->
@@ -44,9 +36,8 @@
           <div class="col-md-3">
             <ul class="list-group">
               <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Top', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿する</a></li>
-              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'my']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>自分の投稿</a></li>
-              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'view']); ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>投稿一覧</a></li>
+              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Threads', 'action'=>'overallRanking']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>ランキング</a></li>
+              <li class="list-group-item"><a href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'allGenres']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>ジャンル</a></li>
             </ul>
           </div>
           <div class="col-md-9">
