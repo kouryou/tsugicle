@@ -27,6 +27,7 @@
                 <li class="active"><a href="<?php echo $this->Url->build(['controller'=>'Top', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
                 <li><a href="<?php echo $this->Url->build(['controller'=>'Threads', 'action'=>'overallRanking']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>ランキング</a></li>
                 <li><a href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'allGenres']); ?>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>ジャンル</a></li>
+                <li><a href="<?php echo $this->Url->build(['controller'=>'board', 'action'=>'index']); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>投稿する</a></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div><!--/.container-fluid -->

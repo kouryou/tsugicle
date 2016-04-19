@@ -3,11 +3,14 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 
-class ThreadsController extends AppController
+class threadsController extends AppController
 {
-    public function overall_ranking()
+    public function overallRanking()
     {
-
+        $threads = TableRegistry::get('Threads');
+        $threads = $threads->find();
+        $this->set([
+            'threads' => $threads,
+        ]);
     }
-
 }

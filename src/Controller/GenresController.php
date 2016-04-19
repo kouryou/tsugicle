@@ -13,4 +13,12 @@ class GenresController extends AppController
             'genres' => $genres,
         ]);
     }
+    public function eachGenreRanking()
+    {
+        $genres = TableRegistry::get('Genres');
+        $genres = $genres->find();
+        $this->set([
+            'genres' => $genres,
+        ]);
+    }
 }
