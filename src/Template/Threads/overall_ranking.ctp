@@ -1,4 +1,4 @@
-<a href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'eachGenreRanking']); ?>">ジャンル別ランキングへ</a>
+<a href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'selectGenreRanking']); ?>">ジャンル別ランキングへ</a>
 
 <h1>総合ランキング</h1>
 

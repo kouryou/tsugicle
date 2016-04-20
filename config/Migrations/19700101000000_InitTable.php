@@ -26,7 +26,8 @@ class InitTable extends AbstractMigration
             ->addColumn('screen_name', 'string')
             ->addColumn('genre_id', 'integer')
             ->addColumn('title', 'string')
-            ->addColumn('good', 'boolean')
+            ->addColumn('tsugicle', 'boolean')
+            ->addColumn('genre_title', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
             ->create();
@@ -37,7 +38,6 @@ class InitTable extends AbstractMigration
             ->addColumn('genre_id', 'integer')
             ->addColumn('thread_id', 'integer')
             ->addColumn('good', 'boolean')
-            ->addColumn('title', 'string')
             ->addColumn('description', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')

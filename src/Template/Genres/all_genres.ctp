@@ -3,7 +3,7 @@
 <ul>
     <?php foreach ($genres as $genre): ?>
         <li>
-            <?=$genre->title ?>
+            <a href="<?= $this->Url->build(['controller'=>'Threads', 'action'=>'newArrivals', $genre->id, $genre->title]); ?>"><?= h($genre->title); ?></a>
         </li>
     <?php endforeach ?>
 </ul>

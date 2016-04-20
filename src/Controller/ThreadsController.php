@@ -13,4 +13,24 @@ class threadsController extends AppController
             'threads' => $threads,
         ]);
     }
+
+    public function newArrivals($id='', $title='')
+    {
+        $threads = TableRegistry::get('Threads');
+        $threads = $threads->find()->where(['genre_id' => $id]);
+        $this->set([
+            'threads' => $threads,
+            'genre_title' => $title
+        ]);
+    }
+
+    public function eachGenreRanking($id='', $title='')
+    {
+        $threads = TableRegistry::get('Threads');
+        $threads = $threads->find()->where(['genre_id' => $id]);
+        $this->set([
+            'threads' => $threads,
+            'genre_title' => $title
+        ]);
+    }
 }
