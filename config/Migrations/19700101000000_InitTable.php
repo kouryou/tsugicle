@@ -25,9 +25,9 @@ class InitTable extends AbstractMigration
             ->addColumn('user_id', 'uuid')
             ->addColumn('screen_name', 'string')
             ->addColumn('genre_id', 'integer')
+            ->addColumn('genre_title', 'string')
             ->addColumn('title', 'string')
             ->addColumn('tsugicle', 'boolean')
-            ->addColumn('genre_title', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
             ->create();

@@ -3,7 +3,7 @@
 <ul>
     <?php foreach ($threads as $thread): ?>
         <li>
-            <a href="<?= $this->Url->build(['controller'=>'Boads', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
+            <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id, $thread->title, $genre_title]); ?>"><?= h($thread->title); ?></a>
         </li>
     <?php endforeach ?>
 </ul>

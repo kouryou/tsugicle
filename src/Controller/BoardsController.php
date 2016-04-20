@@ -92,4 +92,16 @@ class BoardsController extends AppController
         $boards->query()->delete()->where(['id' => $id])->execute();
         return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
+
+    public function detail($id='', $title='', $genre_title='')
+    {
+        $boards = TableRegistry::get('Boards');
+        $boards = $boards->find()->where(['thread_id' => $id]);
+        $this->set([
+            'boards' => $boards,
+            'thread_title' => $title,
+            'genre_title' => $genre_title
+        ]);
+    }
+
 }

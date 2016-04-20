@@ -10,12 +10,12 @@
    <?php endif; ?>
 
    <h2>新着投稿</h2>
-   <?php foreach ($boards as $board): ?>
-     <div class="panel panel-info">
-       <div class="panel-heading"><?=$board->title ?>(投稿時間:<?=$board->created ?>)</div>
-       <div class="panel-body">
-         <?=$board->description ?>
-       </div>
-     </div>
-   <?php endforeach ?>
+   <ul>
+       <?php foreach ($threads as $thread): ?>
+           <li>
+               <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id, $thread->title, $thread->genre_title]); ?>"><?= h($thread->title); ?></a>
+               (<?= $thread->genre_title ?>)
+           </li>
+       <?php endforeach ?>
+   </ul>
 </div>

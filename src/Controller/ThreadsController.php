@@ -14,23 +14,23 @@ class threadsController extends AppController
         ]);
     }
 
-    public function newArrivals($id='', $title='')
+    public function newArrivals($id='',$genre_title='')
     {
         $threads = TableRegistry::get('Threads');
         $threads = $threads->find()->where(['genre_id' => $id]);
         $this->set([
             'threads' => $threads,
-            'genre_title' => $title
+            'genre_title' => $genre_title
         ]);
     }
 
-    public function eachGenreRanking($id='', $title='')
+    public function eachGenreRanking($id='', $genre_title='')
     {
         $threads = TableRegistry::get('Threads');
         $threads = $threads->find()->where(['genre_id' => $id]);
         $this->set([
             'threads' => $threads,
-            'genre_title' => $title
+            'genre_title' => $genre_title
         ]);
     }
 }
