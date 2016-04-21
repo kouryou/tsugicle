@@ -14,23 +14,48 @@ class threadsController extends AppController
         ]);
     }
 
-    public function newArrivals($id='',$genre_title='')
+    public function newArrivals($genre_id='',$genre_title='')
     {
         $threads = TableRegistry::get('Threads');
-        $threads = $threads->find()->where(['genre_id' => $id]);
+        $threads = $threads->find()->where(['genre_id' => $genre_id]);
         $this->set([
             'threads' => $threads,
-            'genre_title' => $genre_title
+            'genre_title' => $genre_title,
+            'genre_id' => $genre_id
         ]);
     }
 
-    public function eachGenreRanking($id='', $genre_title='')
+    public function eachGenreRanking($genre_id='', $genre_title='')
     {
         $threads = TableRegistry::get('Threads');
-        $threads = $threads->find()->where(['genre_id' => $id]);
+        $threads = $threads->find()->where(['genre_id' => $genre_id]);
         $this->set([
             'threads' => $threads,
-            'genre_title' => $genre_title
+            'genre_title' => $genre_title,
+            'genre_id' => $genre_id
         ]);
+    }
+
+    public function add($genre_id='', $genre_title='')
+    {
+        $this->set([
+            'genre_title' => $genre_title,
+            'genre_id' => $genre_id
+        ]);
+        if(isset($_POST['title'])){
+              $threads = TableRegistry::get('Threads');
+                  if($threads->query()->insert(['title','genre_id','genre_title','modified','created'])
+                      ->values(['title' => $this->request->data['title'],
+                            'genre_id' => $genre_id,
+                            'genre_title' => $genre_title,
+                            'modified' => date('Y/m/d H:i:s'),
+                            'created' => date('Y/m/d H:i:s')
+                    ])->execute()){
+                        $this->Flash->success('投稿しました');
+                        return $this->redirect(['controller'=>'Threads', 'action'=>'newArrivals', $genre_id, $genre_title]);
+                } else {
+                 $this->Flash->error('投稿に失敗しました');
+            }
+        }
     }
 }

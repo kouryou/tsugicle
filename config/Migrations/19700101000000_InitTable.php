@@ -45,8 +45,6 @@ class InitTable extends AbstractMigration
 
         $this->table('genres')
             ->addColumn('title', 'string')
-            ->addColumn('modified', 'datetime')
-            ->addColumn('created', 'datetime')
             ->create();
     }
 }
