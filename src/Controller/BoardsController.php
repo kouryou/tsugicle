@@ -15,7 +15,8 @@ class BoardsController extends AppController
         if($this->request->is('post')){
             $boards = TableRegistry::get('Boards');
             if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
-            ->values(['description' => $this->request->data['description'],
+            ->values([
+            'description' => $this->request->data['description'],
             'thread_id' => $thread_id,
             'modified' => date('Y/m/d H:i:s'),
             'created' => date('Y/m/d H:i:s')
@@ -47,7 +48,7 @@ class BoardsController extends AppController
         $boards->query()->delete()->where(['id' => $id])->execute();
         return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
-    
+
     public function detail($thread_id='', $thread_title='', $genre_title='')
     {
         $boards = TableRegistry::get('Boards');

@@ -45,7 +45,8 @@ class threadsController extends AppController
         if($this->request->is('post')){
             $threads = TableRegistry::get('Threads');
             if($threads->query()->insert(['title','genre_id','genre_title','modified','created'])
-            ->values(['title' => $this->request->data['title'],
+            ->values([
+            'title' => $this->request->data['title'],
             'genre_id' => $genre_id,
             'genre_title' => $genre_title,
             'modified' => date('Y/m/d H:i:s'),
