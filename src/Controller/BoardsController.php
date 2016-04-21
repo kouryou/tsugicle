@@ -12,18 +12,18 @@ class BoardsController extends AppController
             'thread_id' => $thread_id,
             'genre_title' => $genre_title
         ]);
-        if(isset($_POST['description'])){
-              $boards = TableRegistry::get('Boards');
-                  if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
-                      ->values(['description' => $this->request->data['description'],
-                            'thread_id' => $thread_id,
-                            'modified' => date('Y/m/d H:i:s'),
-                            'created' => date('Y/m/d H:i:s')
-                    ])->execute()){
-                        $this->Flash->success('投稿しました');
-                        return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id, $thread_title, $genre_title]);
-                } else {
-                 $this->Flash->error('投稿に失敗しました');
+        if($this->request->is('post')){
+            $boards = TableRegistry::get('Boards');
+            if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
+            ->values(['description' => $this->request->data['description'],
+            'thread_id' => $thread_id,
+            'modified' => date('Y/m/d H:i:s'),
+            'created' => date('Y/m/d H:i:s')
+            ])->execute()){
+                $this->Flash->success('投稿しました');
+                return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id, $thread_title, $genre_title]);
+            } else {
+                $this->Flash->error('投稿に失敗しました');
             }
         }
     }
@@ -47,7 +47,7 @@ class BoardsController extends AppController
         $boards->query()->delete()->where(['id' => $id])->execute();
         return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
-
+    
     public function detail($thread_id='', $thread_title='', $genre_title='')
     {
         $boards = TableRegistry::get('Boards');
