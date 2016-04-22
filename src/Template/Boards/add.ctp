@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="post" action="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread_id, $thread_title, $genre_title]); ?>">
+<form class="form-horizontal" method="post" action="<?php echo $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread_id]); ?>">
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">コメント</label>
         <div class="col-sm-10">

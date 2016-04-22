@@ -5,15 +5,14 @@ use Cake\ORM\TableRegistry;
 
 class BoardsController extends AppController
 {
-    public function add($thread_id='', $thread_title='', $genre_title='')
+    public function add($thread_id='')
     {
         $this->set([
-            'thread_title' => $thread_title,
             'thread_id' => $thread_id,
-            'genre_title' => $genre_title
         ]);
         if($this->request->is('post')){
             $boards = TableRegistry::get('Boards');
+            $threads = TableRegistry::get('Threads');
             if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
             ->values([
             'description' => $this->request->data['description'],
@@ -22,7 +21,7 @@ class BoardsController extends AppController
             'created' => date('Y/m/d H:i:s')
             ])->execute()){
                 $this->Flash->success('投稿しました');
-                return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id, $thread_title, $genre_title]);
+                return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
             } else {
                 $this->Flash->error('投稿に失敗しました');
             }
@@ -49,15 +48,15 @@ class BoardsController extends AppController
         return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
     }
 
-    public function detail($thread_id='', $thread_title='', $genre_title='')
+    public function detail($thread_id='')
     {
         $boards = TableRegistry::get('Boards');
+        $threads = TableRegistry::get('Threads');
+        $thread = $threads->find()->where(['id' => $thread_id])->first();
         $boards = $boards->find()->where(['thread_id' => $thread_id]);
         $this->set([
             'boards' => $boards,
-            'thread_title' => $thread_title,
-            'genre_title' => $genre_title,
-            'thread_id' => $thread_id
+            'thread' => $thread
         ]);
     }
 }
