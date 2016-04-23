@@ -23,21 +23,15 @@ class InitTable extends AbstractMigration
 
         $this->table('threads')
             ->addColumn('user_id', 'uuid')
-            ->addColumn('screen_name', 'string')
             ->addColumn('genre_id', 'integer')
-            ->addColumn('genre_title', 'string')
             ->addColumn('title', 'string')
-            ->addColumn('tsugicle', 'boolean')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
             ->create();
 
         $this->table('boards')
             ->addColumn('user_id', 'uuid')
-            ->addColumn('screen_name', 'string')
-            ->addColumn('genre_id', 'integer')
             ->addColumn('thread_id', 'integer')
-            ->addColumn('good', 'boolean')
             ->addColumn('description', 'string')
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')

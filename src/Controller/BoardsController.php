@@ -11,7 +11,7 @@ class BoardsController extends AppController
         $this->set([
             'thread_id' => $thread_id,
         ]);
-        
+
         if(!$this->Session->read('access_token.user_id')){
             $this->Flash->error('投稿するにはログインする必要があります');
             return $this->redirect(['controller'=>'Top', 'action'=>'index']);
@@ -24,10 +24,11 @@ class BoardsController extends AppController
             $validator->add('description','length',['rule'=>['maxLength',500]]);
             $errors = $validator->errors($this->request->data);
             if(empty($errors)){
-                if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
+                if($boards->query()->insert(['user_id', 'thread_id', 'description', 'modified', 'created'])
                     ->values([
-                    'description' => $this->request->data['description'],
+                    'user_id' => $this->Session->read('access_token.user_id'),
                     'thread_id' => $thread_id,
+                    'description' => $this->request->data['description'],
                     'modified' => date('Y/m/d H:i:s'),
                     'created' => date('Y/m/d H:i:s')
                     ])->execute()){

@@ -1,4 +1,4 @@
-<h1>次くる<?= $thread->genre_title ?> : <?= $thread->title ?></h1>
+<h1><?= $thread->title ?></h1>
 
 <h2>コメント一覧</h1>
     <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread->id]); ?>">コメント追加</a><br>

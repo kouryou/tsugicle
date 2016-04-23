@@ -49,6 +49,7 @@ class threadsController extends AppController
             $this->Flash->error('投稿するにはログインする必要があります');
             return $this->redirect(['controller'=>'Top', 'action'=>'index']);
         }
+
         if($this->request->is('post')){
             $threads = TableRegistry::get('Threads');
             $genres = TableRegistry::get('Genres');
@@ -57,11 +58,11 @@ class threadsController extends AppController
             $errors = $validator->errors($this->request->data);
             if(empty($errors)){
                 $genre = $genres->find()->where(['id' => $genre_id])->first();
-                if($threads->query()->insert(['title','genre_id','genre_title','modified','created'])
+                if($threads->query()->insert(['user_id', 'genre_id', 'title', 'modified', 'created'])
                     ->values([
-                    'title' => $this->request->data['title'],
+                    'user_id' => $this->Session->read('access_token.user_id'),
                     'genre_id' => $genre_id,
-                    'genre_title' => $genre->title,
+                    'title' => $this->request->data['title'],
                     'modified' => date('Y/m/d H:i:s'),
                     'created' => date('Y/m/d H:i:s')
                     ])->execute()){
