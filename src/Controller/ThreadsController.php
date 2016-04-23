@@ -48,13 +48,13 @@ class threadsController extends AppController
             $genres = TableRegistry::get('Genres');
             $genre = $genres->find()->where(['id' => $genre_id])->first();
             if($threads->query()->insert(['title','genre_id','genre_title','modified','created'])
-            ->values([
-            'title' => $this->request->data['title'],
-            'genre_id' => $genre_id,
-            'genre_title' => $genre->title,
-            'modified' => date('Y/m/d H:i:s'),
-            'created' => date('Y/m/d H:i:s')
-            ])->execute()){
+                ->values([
+                'title' => $this->request->data['title'],
+                'genre_id' => $genre_id,
+                'genre_title' => $genre->title,
+                'modified' => date('Y/m/d H:i:s'),
+                'created' => date('Y/m/d H:i:s')
+                ])->execute()){
                 $this->Flash->success('投稿しました');
                 return $this->redirect(['controller'=>'Threads', 'action'=>'newArrivals', $genre_id]);
             } else {

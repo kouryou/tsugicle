@@ -2,7 +2,7 @@
 
 <h1>総合ランキング</h1>
 <?php foreach ($threads as $key => $thread): ?>
-    <?= $key+1; ?>位:
+    <?= $key+1 ?>位:
     <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
     (<?= $thread->genre_title ?>)
     <br>

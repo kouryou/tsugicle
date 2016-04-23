@@ -14,12 +14,12 @@ class BoardsController extends AppController
             $boards = TableRegistry::get('Boards');
             $threads = TableRegistry::get('Threads');
             if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
-            ->values([
-            'description' => $this->request->data['description'],
-            'thread_id' => $thread_id,
-            'modified' => date('Y/m/d H:i:s'),
-            'created' => date('Y/m/d H:i:s')
-            ])->execute()){
+                ->values([
+                'description' => $this->request->data['description'],
+                'thread_id' => $thread_id,
+                'modified' => date('Y/m/d H:i:s'),
+                'created' => date('Y/m/d H:i:s')
+                ])->execute()){
                 $this->Flash->success('投稿しました');
                 return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
             } else {
