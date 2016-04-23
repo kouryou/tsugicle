@@ -44,6 +44,11 @@ class threadsController extends AppController
         $this->set([
             'genre_id' => $genre_id
         ]);
+
+        if(!$this->Session->read('access_token.user_id')){
+            $this->Flash->error('投稿するにはログインする必要があります');
+            return $this->redirect(['controller'=>'Top', 'action'=>'index']);
+        }
         if($this->request->is('post')){
             $threads = TableRegistry::get('Threads');
             $genres = TableRegistry::get('Genres');
