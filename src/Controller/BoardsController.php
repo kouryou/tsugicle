@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Validation\Validator;
 
 class BoardsController extends AppController
 {
@@ -13,17 +14,24 @@ class BoardsController extends AppController
         if($this->request->is('post')){
             $boards = TableRegistry::get('Boards');
             $threads = TableRegistry::get('Threads');
-            if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
-                ->values([
-                'description' => $this->request->data['description'],
-                'thread_id' => $thread_id,
-                'modified' => date('Y/m/d H:i:s'),
-                'created' => date('Y/m/d H:i:s')
-                ])->execute()){
-                $this->Flash->success('投稿しました');
-                return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
-            } else {
-                $this->Flash->error('投稿に失敗しました');
+            $validator = new Validator();
+            $validator->add('description','length',['rule'=>['maxLength',500]]);
+            $errors = $validator->errors($this->request->data);
+            if(empty($errors)){
+                if($boards->query()->insert(['description', 'thread_id', 'modified', 'created'])
+                    ->values([
+                    'description' => $this->request->data['description'],
+                    'thread_id' => $thread_id,
+                    'modified' => date('Y/m/d H:i:s'),
+                    'created' => date('Y/m/d H:i:s')
+                    ])->execute()){
+                    $this->Flash->success('投稿しました');
+                    return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
+                } else {
+                    $this->Flash->error('投稿に失敗しました');
+                }
+            }else{
+            $this->Flash->error('500文字以内してください');
             }
         }
     }

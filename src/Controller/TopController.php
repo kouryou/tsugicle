@@ -10,7 +10,9 @@ class TopController extends AppController
       $threads = TableRegistry::get('threads');
       $threads = $threads->find();
       $this->set([
-          'threads' => $threads
+          'threads' => $threads,
+          'user_id' => $this->Session->read('access_token.user_id'),
+          'screen_name' => $this->Session->read('access_token.screen_name')
       ]);
   }
 }

@@ -21,7 +21,7 @@ class TwitterController extends AppController
         // リクエストトークンを取得してセッションに保存する
         $connection = new TwitterOAuth($consumer_key, $consumer_secret);
         $request_token = $connection->oauth('oauth/request_token',
-        array('oauth_callback' => $callback));
+            array('oauth_callback' => $callback));
         $this->request->session()->write('twitter.request_token', $request_token);
         // Twitterのログイン画面へリダイレクト
         $url = $connection->url('oauth/authenticate', array('oauth_token' => $request_token['oauth_token']));
