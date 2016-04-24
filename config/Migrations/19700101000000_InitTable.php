@@ -40,5 +40,21 @@ class InitTable extends AbstractMigration
         $this->table('genres')
             ->addColumn('title', 'string')
             ->create();
+
+        $this->table('goods')
+            ->addColumn('user_id', 'uuid')
+            ->addColumn('board_id', 'integer')
+            ->addColumn('good', 'boolean')
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
+            ->create();
+
+        $this->table('tsugicles')
+            ->addColumn('user_id', 'uuid')
+            ->addColumn('thread_id', 'integer')
+            ->addColumn('tsugicle', 'boolean')
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
+            ->create();
     }
 }
