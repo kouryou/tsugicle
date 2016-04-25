@@ -6,16 +6,15 @@ use Cake\Validation\Validator;
 
 class BoardsController extends AppController
 {
+    public $components = ['LoginCheck'];
+
     public function add($thread_id='')
     {
         $this->set([
             'thread_id' => $thread_id,
         ]);
 
-        if(!$this->Session->read('access_token.user_id')){
-            $this->Flash->error('投稿するにはログインする必要があります');
-            return $this->redirect(['controller'=>'Top', 'action'=>'index']);
-        }
+        $this->LoginCheck->loginCheck();
 
         if($this->request->is('post')){
             $boards = TableRegistry::get('Boards');

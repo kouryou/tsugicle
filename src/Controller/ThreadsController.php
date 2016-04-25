@@ -6,6 +6,8 @@ use Cake\Validation\Validator;
 
 class threadsController extends AppController
 {
+    public $components = ['LoginCheck'];
+
     public function overallRanking()
     {
         $threads = TableRegistry::get('Threads');
@@ -45,10 +47,7 @@ class threadsController extends AppController
             'genre_id' => $genre_id
         ]);
 
-        if(!$this->Session->read('access_token.user_id')){
-            $this->Flash->error('投稿するにはログインする必要があります');
-            return $this->redirect(['controller'=>'Top', 'action'=>'index']);
-        }
+        $this->LoginCheck->loginCheck();
 
         if($this->request->is('post')){
             $threads = TableRegistry::get('Threads');
