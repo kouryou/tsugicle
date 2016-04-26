@@ -67,9 +67,10 @@ class BoardsController extends AppController
         $boards = TableRegistry::get('Boards');
         $threads = TableRegistry::get('Threads');
         $thread = $threads->find()->where(['id' => $thread_id])->first();
-        $boards = $boards->find()->where(['thread_id' => $thread_id]);
         $tsugicles = TableRegistry::get('Tsugicles');
         $goods = TableRegistry::get('Goods');
+        $boards = $boards->find()->where(['thread_id' => $thread_id]);
+
 
     //ツギクルボタン処理
         if($this->request->is('post')){
@@ -137,11 +138,21 @@ class BoardsController extends AppController
             $goods_array[] = $good_user->board_id;
         }
 
+        $goods_count = $goods->find()->select([
+            'good_sum' => $goods->find()->func()->sum('good'),
+            'board_id' => 'board_id'
+            ])->group('board_id');
+        $goods_count_array = [];
+        foreach ($goods_count as $good_count) {
+            $goods_count_array[$good_count->board_id] = $good_count->good_sum;
+        }
+
         $this->set([
             'boards' => $boards,
             'thread' => $thread,
             'tsugicles_user' => $tsugicles_user,
-            'goods_array' => $goods_array
+            'goods_array' => $goods_array,
+            'goods_count_array' => $goods_count_array
         ]);
     }
 }

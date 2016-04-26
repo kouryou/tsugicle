@@ -9,7 +9,6 @@
         }?>">ツギクル</button>
 </form>
 
-
 <h2>コメント一覧</h1>
     <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread->id]); ?>">コメント追加</a><br>
 
@@ -18,6 +17,13 @@
             <div class="panel-heading">(投稿時間:<?=$board->created ?>)</div>
             <div class="panel-body">
                 <?= nl2br(h($board->description)) ?>
+            </div>
+            <div>
+                <?php if(isset($goods_count_array[$board->id])){
+                    echo $goods_count_array[$board->id];
+                }else{
+                    echo "0";
+                } ?>いいね
             </div>
             <form method="post">
                 <input type="hidden" name="board_id" value="<?= $board->id ?>">

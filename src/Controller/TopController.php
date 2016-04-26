@@ -17,13 +17,23 @@ class TopController extends AppController
           foreach ($genres as $genre) {
               $genre_array[$genre->id] = $genre->title;
           }
-          //global試し//
+
+          $tsugicles = TableRegistry::get('Tsugicles');
+          $tsugicles_count = $tsugicles->find()->select([
+              'tsugicle_sum' => $tsugicles->find()->func()->sum('tsugicle'),
+              'thread_id' => 'thread_id'
+              ])->group('thread_id');
+          $tsugicles_count_array = [];
+          foreach ($tsugicles_count as $tsugicle_count) {
+              $tsugicles_count_array[$tsugicle_count->thread_id] = $tsugicle_count->tsugicle_sum;
+          }
 
               $this->set([
                   'threads' => $threads,
                   'user_id' => $this->Session->read('access_token.user_id'),
                   'screen_name' => $this->Session->read('access_token.screen_name'),
-                  'genre_array' => $genre_array
+                  'genre_array' => $genre_array,
+                  'tsugicles_count_array' => $tsugicles_count_array
               ]);
     }
 }

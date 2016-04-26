@@ -15,6 +15,11 @@
            <li>
                <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
                (<?= $genre_array[$thread->genre_id] ?>)
+               <?php if(isset($tsugicles_count_array[$thread->id])){
+                   echo $tsugicles_count_array[$thread->id];
+               }else{
+                   echo "0";
+               } ?>ツギクル
            </li>
        <?php endforeach ?>
    </ul>
