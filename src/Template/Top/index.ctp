@@ -15,18 +15,6 @@
            <li>
                <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
                (<?= $genre_array[$thread->genre_id] ?>)
-               <form method="post">
-                   <input type="hidden" name="thread_id" value="<?= $thread->id ?>">
-                   <button type="submit" class="
-                   <?php if(isset($tsugicles_array)){
-                       if(in_array($thread->id, $tsugicles_array)){
-                           echo "btn btn-warning";
-                       }else{
-                           echo "btn btn-default";
-                       }}else{
-                           echo "btn btn-default";
-                       }?>">ツギクル</button>
-               </form>
            </li>
        <?php endforeach ?>
    </ul>

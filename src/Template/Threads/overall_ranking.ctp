@@ -4,6 +4,6 @@
 <?php foreach ($threads as $key => $thread): ?>
     <?= $key+1 ?>位:
     <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
-    (<?= $thread->genre_title ?>)
+    (<?= $genre_array[$thread->genre_id] ?>)
     <br>
 <?php endforeach ?>
