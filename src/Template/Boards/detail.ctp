@@ -39,3 +39,11 @@
             </form>
         </div>
     <?php endforeach ?>
+    
+    <ul class="pagination">
+        <li><?= $this->Paginator->first('<<'); ?></li>
+        <li><?= $this->Paginator->prev('<'); ?></li>
+        <li><?= $this->Paginator->numbers(); ?></li>
+        <li><?= $this->Paginator->next('>'); ?></li>
+        <li><?= $this->Paginator->last('>>'); ?></li>
+    </ul>

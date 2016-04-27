@@ -7,6 +7,11 @@ use Cake\Validation\Validator;
 class threadsController extends AppController
 {
     public $components = ['LoginCheck'];
+    public $paginate = ['limit' => 20];
+    public $helpers = [
+        'Paginator' => ['templates' =>
+            'paginator-templates']
+    ];
 
     public function overallRanking()
     {
@@ -22,7 +27,7 @@ class threadsController extends AppController
         $tsugicles_count = $tsugicles->find()->select([
             'tsugicle_sum' => $tsugicles->find()->func()->sum('tsugicle'),
             'thread_id' => 'thread_id'
-            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC']);
+            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC'])->limit(50);
 
 
         $tsugicles_count_array = [];
@@ -60,7 +65,7 @@ class threadsController extends AppController
         }
 
         $this->set([
-            'threads' =>$threads,
+            'threads' => $this->paginate($threads),
             'genre' => $genre,
             'tsugicles_count_array' => $tsugicles_count_array
         ]);
@@ -76,7 +81,7 @@ class threadsController extends AppController
         $tsugicles_count = $tsugicles->find()->select([
             'tsugicle_sum' => $tsugicles->find()->func()->sum('tsugicle'),
             'thread_id' => 'thread_id'
-            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC']);
+            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC'])->limit(500);
         $tsugicles_count_array = [];
         $threads_array = [];
         foreach ($tsugicles_count as $tsugicle_count) {

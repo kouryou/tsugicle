@@ -8,6 +8,12 @@ class BoardsController extends AppController
 {
     public $components = ['LoginCheck'];
 
+    public $paginate = ['limit' => 20];
+    public $helpers = [
+        'Paginator' => ['templates' =>
+            'paginator-templates']
+    ];
+
     public function add($thread_id='')
     {
         $this->set([
@@ -148,7 +154,7 @@ class BoardsController extends AppController
         }
 
         $this->set([
-            'boards' => $boards,
+            'boards' => $this->paginate($boards),
             'thread' => $thread,
             'tsugicles_user' => $tsugicles_user,
             'goods_array' => $goods_array,

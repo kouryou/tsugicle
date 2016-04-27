@@ -6,6 +6,12 @@ use Cake\ORM\TableRegistry;
 class TopController extends AppController
 {
     public $components = ['LoginCheck'];
+    public $paginate = ['limit' => 20];
+    public $helpers = [
+        'Paginator' => ['templates' =>
+            'paginator-templates']
+    ];
+
     public function index()
     {
           $threads = TableRegistry::get('threads');
@@ -28,12 +34,12 @@ class TopController extends AppController
               $tsugicles_count_array[$tsugicle_count->thread_id] = $tsugicle_count->tsugicle_sum;
           }
 
-              $this->set([
-                  'threads' => $threads,
-                  'user_id' => $this->Session->read('access_token.user_id'),
-                  'screen_name' => $this->Session->read('access_token.screen_name'),
-                  'genre_array' => $genre_array,
-                  'tsugicles_count_array' => $tsugicles_count_array
-              ]);
+          $this->set([
+              'threads' => $this->paginate($threads),
+              'user_id' => $this->Session->read('access_token.user_id'),
+              'screen_name' => $this->Session->read('access_token.screen_name'),
+              'genre_array' => $genre_array,
+              'tsugicles_count_array' => $tsugicles_count_array
+          ]);
     }
 }

@@ -8,7 +8,8 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
+        
+        $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->Session = $this->request->session();
