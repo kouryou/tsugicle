@@ -15,7 +15,7 @@ class TopController extends AppController
     public function index()
     {
           $threads = TableRegistry::get('threads');
-          $threads = $threads->find();
+          $threads = $threads->find()->order(['created' => 'DESC']);
 
           $genres = TableRegistry::get('Genres');
           $genres = $genres->find();

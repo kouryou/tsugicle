@@ -1,29 +1,34 @@
-<h1><?= $thread->title ?></h1>
-<form method="post">
-    <input type="hidden" name="tsugicle" value="true">
-    <button type="submit" class="
-    <?php if(isset($tsugicles_user)){
-            echo "btn btn-warning";
-        }else{
-            echo "btn btn-default";
-        }?>">ツギクル</button>
-</form>
+<div class="jumbotron">
+        <h1><?= $thread->title ?></h1>
+        <form method="post">
+            <input type="hidden" name="tsugicle" value="true">
+            <button type="submit" class="
+            <?php if(isset($tsugicles_user)){
+                    echo "btn btn-warning";
+                }else{
+                    echo "btn btn-default";
+                }?>">ツギクル</button>
+        </form>
+</div>
 
-<h2>コメント一覧</h1>
-    <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread->id]); ?>">コメント追加</a><br>
+<div>
+    <h2>コメント一覧</h2>
+    <p><a class="btn btn-sm btn-primary" href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread->id]); ?>">コメント追加 &raquo;</a></p>
 
     <?php foreach ($boards as $board): ?>
         <div class="panel panel-info">
-            <div class="panel-heading">(投稿時間:<?=$board->created ?>)</div>
+            <div class="panel-heading">
+                <?=$board->created ?>
+                <span class="badge">
+                    <?php if(isset($goods_count_array[$board->id])){
+                        echo $goods_count_array[$board->id];
+                    }else{
+                        echo "0";
+                    } ?>いいね
+                </span>
+            </div>
             <div class="panel-body">
                 <?= nl2br(h($board->description)) ?>
-            </div>
-            <div>
-                <?php if(isset($goods_count_array[$board->id])){
-                    echo $goods_count_array[$board->id];
-                }else{
-                    echo "0";
-                } ?>いいね
             </div>
             <form method="post">
                 <input type="hidden" name="board_id" value="<?= $board->id ?>">
@@ -35,11 +40,11 @@
                         echo "btn btn-default";
                     }}else{
                         echo "btn btn-default";
-                    }?>">いいね</button>
+                    }?>"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> いいね!</button>
             </form>
         </div>
     <?php endforeach ?>
-    
+</div>
     <ul class="pagination">
         <li><?= $this->Paginator->first('<<'); ?></li>
         <li><?= $this->Paginator->prev('<'); ?></li>

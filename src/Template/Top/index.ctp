@@ -10,19 +10,24 @@
    <?php endif; ?>
 
    <h2>新着投稿</h2>
-   <ul>
        <?php foreach ($threads as $thread): ?>
-           <li>
-               <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
-               (<?= $genre_array[$thread->genre_id] ?>)
-               <?php if(isset($tsugicles_count_array[$thread->id])){
-                   echo $tsugicles_count_array[$thread->id];
-               }else{
-                   echo "0";
-               } ?>ツギクル
-           </li>
+           <div class="panel panel-info">
+               <div class="panel-heading">
+                   <h3>
+                       <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
+                       (<?= $genre_array[$thread->genre_id] ?>)
+                   </h3>
+                       <span class="badge">
+                           <?php if(isset($tsugicles_count_array[$thread->id])){
+                               echo $tsugicles_count_array[$thread->id];
+                           }else{
+                               echo "0";
+                           } ?>ツギクル
+                       </span>
+                   <?= $thread->created ?>
+               </div>
+           </div>
        <?php endforeach ?>
-   </ul>
    <ul class="pagination">
        <li><?= $this->Paginator->first('<<'); ?></li>
        <li><?= $this->Paginator->prev('<'); ?></li>

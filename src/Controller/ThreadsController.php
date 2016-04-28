@@ -52,7 +52,7 @@ class threadsController extends AppController
         $threads = TableRegistry::get('Threads');
         $genres = TableRegistry::get('Genres');
         $genre = $genres->find()->where(['id' => $genre_id])->first();
-        $threads = $threads->find()->where(['genre_id' => $genre_id]);
+        $threads = $threads->find()->where(['genre_id' => $genre_id])->order(['created' => 'DESC']);
 
         $tsugicles = TableRegistry::get('Tsugicles');
         $tsugicles_count = $tsugicles->find()->select([

@@ -1,19 +1,24 @@
 <h1>次くる<?= h($genre->title); ?></h1>
 
-<a href="<?= $this->Url->build(['controller'=>'Threads', 'action'=>'add', $genre->id]); ?>">項目追加</a><br>
+<p><a class="btn btn-primary" href="<?= $this->Url->build(['controller'=>'Threads', 'action'=>'add', $genre->id]); ?>">項目追加 &raquo;</a></p>
 
-<ul>
-    <?php foreach ($threads as $thread): ?>
-        <li>
-            <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
-            <?php if(isset($tsugicles_count_array[$thread->id])){
-                echo $tsugicles_count_array[$thread->id];
-            }else{
-                echo "0";
-            } ?>ツギクル
-        </li>
-    <?php endforeach ?>
-</ul>
+<?php foreach ($threads as $thread): ?>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>
+                <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
+            </h3>
+            <span class="badge">
+                <?php if(isset($tsugicles_count_array[$thread->id])){
+                    echo $tsugicles_count_array[$thread->id];
+                }else{
+                    echo "0";
+                } ?>ツギクル
+            </span>
+            <?= $thread->created ?>
+        </div>
+    </div>
+<?php endforeach ?>
 
 <ul class="pagination">
     <li><?= $this->Paginator->first('<<'); ?></li>
