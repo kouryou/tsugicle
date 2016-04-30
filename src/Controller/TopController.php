@@ -42,4 +42,5 @@ class TopController extends AppController
               'tsugicles_count_array' => $tsugicles_count_array
           ]);
     }
+    
 }

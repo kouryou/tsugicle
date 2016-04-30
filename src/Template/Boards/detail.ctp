@@ -1,6 +1,6 @@
 <div class="jumbotron">
-        <h1><?= $thread->title ?></h1>
-        <form method="post">
+    <h1><?= $thread->title ?></h1>
+    <form method="post" action="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'changeTsugicle', $thread->id]); ?>">
             <input type="hidden" name="tsugicle" value="true">
             <button type="submit" class="
             <?php if(isset($tsugicles_user)){
@@ -8,7 +8,7 @@
                 }else{
                     echo "btn btn-default";
                 }?>">ツギクル</button>
-        </form>
+    </form>
 </div>
 
 <div>
@@ -24,13 +24,13 @@
                         echo $goods_count_array[$board->id];
                     }else{
                         echo "0";
-                    } ?>いいね
+                    } ?>いいね!
                 </span>
             </div>
             <div class="panel-body">
                 <?= nl2br(h($board->description)) ?>
             </div>
-            <form method="post">
+            <form method="post" action="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'changeGood', $thread->id]); ?>">
                 <input type="hidden" name="board_id" value="<?= $board->id ?>">
                 <button type="submit" class="
                 <?php if(isset($goods_array)){

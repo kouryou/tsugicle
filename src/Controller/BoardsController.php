@@ -48,26 +48,6 @@ class BoardsController extends AppController
         }
     }
 
-    public function edit($id = '')
-    {
-        $boards = TableRegistry::get('Boards');
-        $board = $boards->find()->where(['id' => $id])->first();
-        $this->set([
-            'user_id' => $this->Session->read('access_token.user_id'),
-            'screen_name' => $this->Session->read('access_token.screen_name'),
-            'board' => $board
-        ]);
-        $this->render('index');
-    }
-
-    public function delete($id = '')
-    {
-        $boards = TableRegistry::get('Boards');
-        $this->Flash->set('削除しました', ['element' => 'success']);
-        $boards->query()->delete()->where(['id' => $id])->execute();
-        return $this->redirect(['controller' => 'boards', 'action'=> 'view']);
-    }
-
     public function detail($thread_id='')
     {
         $boards = TableRegistry::get('Boards');
@@ -76,63 +56,6 @@ class BoardsController extends AppController
         $tsugicles = TableRegistry::get('Tsugicles');
         $goods = TableRegistry::get('Goods');
         $boards = $boards->find()->where(['thread_id' => $thread_id]);
-
-
-    //ツギクルボタン処理
-        if($this->request->is('post')){
-            if(!$this->LoginCheck->loginCheck()){
-                if(isset($this->request->data['tsugicle'])){
-                    if(
-                        $tsugicle_exist = $tsugicles->find()->where([
-                            'user_id' => $this->Session->read("access_token.user_id"), 'thread_id' => $thread_id
-                            ])
-                            ->first()){
-                        $tsugicle = !($tsugicle_exist->tsugicle);
-                        $tsugicles->query()->update()
-                          ->set([
-                              'tsugicle' => $tsugicle,
-                              'modified' => date('Y/m/d H:i:s')
-                          ])
-                          ->where(['user_id' => $this->Session->read("access_token.user_id"), 'thread_id' => $thread_id])
-                          ->execute();
-                    }else{
-                        $tsugicles->query()->insert(['user_id', 'thread_id', 'tsugicle', 'modified', 'created'])
-                        ->values([
-                            'user_id' => $this->Session->read('access_token.user_id'),
-                            'thread_id' => $thread_id,
-                            'tsugicle' => true,
-                            'modified' => date('Y/m/d H:i:s'),
-                            'created' => date('Y/m/d H:i:s')
-                        ])->execute();
-                    }
-                }else{
-                    if(
-                        $good_exist = $goods->find()->where([
-                            'user_id' => $this->Session->read("access_token.user_id"), 'board_id' => $this->request->data['board_id']
-                            ])
-                            ->first()){
-                        $good = !($good_exist->good);
-                        $goods->query()->update()
-                          ->set([
-                              'good' => $good,
-                              'modified' => date('Y/m/d H:i:s')
-                          ])
-                          ->where(['user_id' => $this->Session->read("access_token.user_id"), 'board_id' => $this->request->data['board_id']])
-                          ->execute();
-                    }else{
-                        $goods->query()->insert(['user_id', 'board_id', 'good', 'modified', 'created'])
-                        ->values([
-                            'user_id' => $this->Session->read('access_token.user_id'),
-                            'board_id' => $this->request->data['board_id'],
-                            'good' => true,
-                            'modified' => date('Y/m/d H:i:s'),
-                            'created' => date('Y/m/d H:i:s')
-                        ])->execute();
-                    }
-                }
-            }
-        }
-
 
         $tsugicles_user = $tsugicles->find()->where([
             'user_id' => $this->Session->read("access_token.user_id"), 'thread_id' => $thread_id, 'tsugicle' => true
@@ -160,5 +83,67 @@ class BoardsController extends AppController
             'goods_array' => $goods_array,
             'goods_count_array' => $goods_count_array
         ]);
+    }
+
+    public function changeTsugicle($thread_id = '')
+    {
+        $tsugicles = TableRegistry::get('Tsugicles');
+        if(!$this->LoginCheck->loginCheck()){
+            if(
+            $tsugicle_exist = $tsugicles->find()->where([
+                'user_id' => $this->Session->read("access_token.user_id"), 'thread_id' => $thread_id
+            ])
+            ->first()){
+                $tsugicle = !($tsugicle_exist->tsugicle);
+                $tsugicles->query()->update()
+                ->set([
+                    'tsugicle' => $tsugicle,
+                    'modified' => date('Y/m/d H:i:s')
+                ])
+                ->where(['user_id' => $this->Session->read("access_token.user_id"), 'thread_id' => $thread_id ])
+                ->execute();
+            }else{
+                $tsugicles->query()->insert(['user_id', 'thread_id', 'tsugicle', 'modified', 'created'])
+                ->values([
+                    'user_id' => $this->Session->read('access_token.user_id'),
+                    'thread_id' => $thread_id,
+                    'tsugicle' => true,
+                    'modified' => date('Y/m/d H:i:s'),
+                    'created' => date('Y/m/d H:i:s')
+                    ])->execute();
+                }
+                $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
+            }
+        }
+
+
+    public function changeGood($thread_id='') {
+        $goods = TableRegistry::get('Goods');
+        if(!$this->LoginCheck->loginCheck()){
+            if(
+                $good_exist = $goods->find()->where([
+                    'user_id' => $this->Session->read("access_token.user_id"), 'board_id' => $this->request->data['board_id']
+                    ])
+                    ->first()){
+                $good = !($good_exist->good);
+                $goods->query()->update()
+                  ->set([
+                      'good' => $good,
+                      'modified' => date('Y/m/d H:i:s')
+                  ])
+                  ->where(['user_id' => $this->Session->read("access_token.user_id"), 'board_id' => $this->request->data['board_id']])
+                  ->execute();
+            }else{
+                $goods->query()->insert(['user_id', 'board_id', 'good', 'modified', 'created'])
+                ->values([
+                    'user_id' => $this->Session->read('access_token.user_id'),
+                    'board_id' => $this->request->data['board_id'],
+                    'good' => true,
+                    'modified' => date('Y/m/d H:i:s'),
+                    'created' => date('Y/m/d H:i:s')
+                ])->execute();
+            }
+            $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
+        }
     }
 }
