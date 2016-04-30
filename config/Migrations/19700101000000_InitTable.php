@@ -56,5 +56,16 @@ class InitTable extends AbstractMigration
             ->addColumn('modified', 'datetime')
             ->addColumn('created', 'datetime')
             ->create();
+
+        $this->table('rankings')
+            ->addColumn('thread_id', 'integer')
+            ->addColumn('tsugicle_sum', 'integer')
+            ->addColumn('collection_time', 'datetime')
+            ->create();
+
+        $this->table('constants')
+            ->addColumn('key_column', 'string')
+            ->addColumn('value_column', 'string')
+            ->create();
     }
 }

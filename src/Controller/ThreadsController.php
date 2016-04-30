@@ -23,27 +23,29 @@ class threadsController extends AppController
             $genre_array[$genre->id] = $genre->title;
         }
 
-        $tsugicles = TableRegistry::get('Tsugicles');
-        $tsugicles_count = $tsugicles->find()->select([
-            'tsugicle_sum' => $tsugicles->find()->func()->sum('tsugicle'),
-            'thread_id' => 'thread_id'
-            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC'])->limit(50);
+        $constants = TableRegistry::get('Constants');
+        $constant_first = $constants->find()->order(['id' => 'DESC'])->first();
 
+        $rankings = TableRegistry::get('Rankings');
+        $overall_rankings = $rankings->find()->where(['collection_time' => $constant_first->value_column]);
 
         $tsugicles_count_array = [];
         $threads_array = [];
         $threads = TableRegistry::get('threads');
-        foreach ($tsugicles_count as $tsugicle_count) {
-            $tsugicles_count_array[$tsugicle_count->thread_id] = $tsugicle_count->tsugicle_sum;
-            $threads_array[] = $threads->find()->where(['id' => $tsugicle_count->thread_id])->first();
+        foreach ($overall_rankings as $overall_ranking) {
+            $tsugicles_count_array[$overall_ranking->thread_id] = $overall_ranking->tsugicle_sum;
+            $threads_array[] = $threads->find()->where(['id' => $overall_ranking->thread_id])->first();
         }
+
+        $collection_time = $constant_first->value_column;
 
         $this->set([
             'threads_array' => $threads_array,
             'user_id' => $this->Session->read('access_token.user_id'),
             'screen_name' => $this->Session->read('access_token.screen_name'),
             'genre_array' => $genre_array,
-            'tsugicles_count_array' => $tsugicles_count_array
+            'tsugicles_count_array' => $tsugicles_count_array,
+            'collection_time' => $collection_time
         ]);
     }
 
@@ -66,33 +68,6 @@ class threadsController extends AppController
 
         $this->set([
             'threads' => $this->paginate($threads),
-            'genre' => $genre,
-            'tsugicles_count_array' => $tsugicles_count_array
-        ]);
-    }
-
-    public function eachGenreRanking($genre_id='')
-    {
-        $threads = TableRegistry::get('Threads');
-        $genres = TableRegistry::get('Genres');
-        $genre = $genres->find()->where(['id' => $genre_id])->first();
-
-        $tsugicles = TableRegistry::get('Tsugicles');
-        $tsugicles_count = $tsugicles->find()->select([
-            'tsugicle_sum' => $tsugicles->find()->func()->sum('tsugicle'),
-            'thread_id' => 'thread_id'
-            ])->group('thread_id')->order(['tsugicle_sum' => 'DESC'])->limit(500);
-        $tsugicles_count_array = [];
-        $threads_array = [];
-        foreach ($tsugicles_count as $tsugicle_count) {
-            $tsugicles_count_array[$tsugicle_count->thread_id] = $tsugicle_count->tsugicle_sum;
-            if($thread_exist = $threads->find()->where(['id' => $tsugicle_count->thread_id, 'genre_id' => $genre_id])->first()){
-                $threads_array[] = $thread_exist;
-            }
-        }
-
-        $this->set([
-            'threads_array' => $threads_array,
             'genre' => $genre,
             'tsugicles_count_array' => $tsugicles_count_array
         ]);

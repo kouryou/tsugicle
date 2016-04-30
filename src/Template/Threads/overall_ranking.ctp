@@ -1,7 +1,5 @@
-<p><a class="btn btn-primary" href="<?php echo $this->Url->build(['controller'=>'Genres', 'action'=>'selectGenreRanking']); ?>">
-    ジャンル別ランキング &raquo;</a></p>
-
-<h1>総合ランキング</h1>
+<h1>ツギクルランキング</h1>
+<h4><span class="label label-success"><?= $collection_time ?>時点</span></h4>
 
 <?php foreach ($threads_array as $key => $thread_array): ?>
     <div class="panel panel-info">

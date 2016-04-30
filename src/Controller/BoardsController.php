@@ -111,10 +111,10 @@ class BoardsController extends AppController
                     'modified' => date('Y/m/d H:i:s'),
                     'created' => date('Y/m/d H:i:s')
                     ])->execute();
-                }
-                $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
             }
+            $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
         }
+    }
 
 
     public function changeGood($thread_id='') {
