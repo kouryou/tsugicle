@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">コメント</label>
         <div class="col-sm-10">
-            <textarea rows="5" class="form-control" id="description" name="description" required></textarea>
+            <textarea rows="10" class="form-control" id="description" name="description" required></textarea>
         </div>
     </div>
     <div class="form-group">

@@ -6,7 +6,7 @@
         <div class="panel-heading">
             <h3>
                 <?= $key+1 ?>位:
-                <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread_array->id]); ?>"><?= h($thread_array->title); ?></a>
+                <u><a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread_array->id]); ?>"><?= h($thread_array->title); ?></a></u>
                 (<?= $genre_array[$thread_array->genre_id] ?>)
             </h3>
             <span class="badge">

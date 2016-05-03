@@ -29,6 +29,14 @@ class InitTable extends AbstractMigration
             ->addColumn('created', 'datetime')
             ->create();
 
+        $this->table('informations')
+            ->addColumn('user_id', 'uuid')
+            ->addColumn('thread_id', 'integer')
+            ->addColumn('information', 'string', ['default' => null, 'limit' => 1000, 'null' =>false])
+            ->addColumn('modified', 'datetime')
+            ->addColumn('created', 'datetime')
+            ->create();
+
         $this->table('boards')
             ->addColumn('user_id', 'uuid')
             ->addColumn('thread_id', 'integer')

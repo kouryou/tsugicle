@@ -26,7 +26,7 @@ class BoardsController extends AppController
             $boards = TableRegistry::get('Boards');
             $threads = TableRegistry::get('Threads');
             $validator = new Validator();
-            $validator->add('description','length',['rule'=>['maxLength',500]]);
+            $validator->add('description','length',['rule'=>['maxLength',200]]);
             $errors = $validator->errors($this->request->data);
             if(empty($errors)){
                 if($boards->query()->insert(['user_id', 'thread_id', 'description', 'modified', 'created'])
@@ -43,7 +43,7 @@ class BoardsController extends AppController
                     $this->Flash->error('投稿に失敗しました');
                 }
             }else{
-            $this->Flash->error('500文字以内してください');
+            $this->Flash->error('200文字以内してください');
             }
         }
     }
@@ -76,12 +76,16 @@ class BoardsController extends AppController
             $goods_count_array[$good_count->board_id] = $good_count->good_sum;
         }
 
+        $informations = TableRegistry::get('Informations');
+        $information = $informations->find()->where(['thread_id' => $thread_id])->order(['id' => 'DESC'])->first();
+
         $this->set([
             'boards' => $this->paginate($boards),
             'thread' => $thread,
             'tsugicles_user' => $tsugicles_user,
             'goods_array' => $goods_array,
-            'goods_count_array' => $goods_count_array
+            'goods_count_array' => $goods_count_array,
+            'information' => $information
         ]);
     }
 
@@ -144,6 +148,45 @@ class BoardsController extends AppController
                 ])->execute();
             }
             $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
+        }
+    }
+
+    public function editInformation($thread_id='') {
+        $this->set([
+            'thread_id' => $thread_id,
+        ]);
+        $this->LoginCheck->loginCheck();
+
+        $informations = TableRegistry::get('Informations');
+        if($thread_information = $informations->find()->where(['thread_id' => $thread_id])->order(['id' => 'DESC'])->first()){
+            $information = $thread_information->information;
+            $this->set([
+                'information' => $information,
+            ]);
+        }
+
+        if($this->request->is('post')){
+            $informations = TableRegistry::get('Informations');
+            $validator = new Validator();
+            $validator->add('information','length',['rule'=>['maxLength',1000]]);
+            $errors = $validator->errors($this->request->data);
+            if(empty($errors)){
+                if($informations->query()->insert(['user_id', 'thread_id', 'information', 'modified', 'created'])
+                    ->values([
+                        'user_id' => $this->Session->read('access_token.user_id'),
+                        'thread_id' => $thread_id,
+                        'information' => $this->request->data['information'],
+                        'modified' => date('Y/m/d H:i:s'),
+                        'created' => date('Y/m/d H:i:s')
+                    ])->execute()){
+                    $this->Flash->success('編集しました');
+                    return $this->redirect(['controller'=>'Boards', 'action'=>'detail', $thread_id]);
+                } else {
+                    $this->Flash->error('編集に失敗しました');
+                }
+            }else{
+                $this->Flash->error('1000文字以内してください');
+            }
         }
     }
 }

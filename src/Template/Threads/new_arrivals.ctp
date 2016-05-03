@@ -6,7 +6,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3>
-                <a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a>
+                <u><a href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'detail', $thread->id]); ?>"><?= h($thread->title); ?></a></u>
             </h3>
             <span class="badge">
                 <?php if(isset($tsugicles_count_array[$thread->id])){

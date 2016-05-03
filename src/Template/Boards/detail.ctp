@@ -9,9 +9,19 @@
                     echo "btn btn-default";
                 }?>">ツギクル</button>
     </form>
+    <br>
+    <hr>
+    <h2><span class="glyphicon glyphicon-book"></span>情報</h2>
+    <p><?php if(isset($information->information)){
+        echo nl2br($information->information);
+    }else{
+        echo '現在情報はありません';
+    } ?></p>
+    <p><a class="btn btn-sm btn-primary" href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'editInformation', $thread->id]); ?>">編集 &raquo;</a></p>
+
 </div>
 
-<div>
+<div class="jumbotron">
     <h2>コメント一覧</h2>
     <p><a class="btn btn-sm btn-primary" href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'add', $thread->id]); ?>">コメント追加 &raquo;</a></p>
 
