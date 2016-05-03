@@ -75,6 +75,17 @@ use Cake\Utility\Security;
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+    switch ( env('CAKEPHP_ENV') ) {
+        case 'development':
+            Configure::load('environments/development', 'default');
+            break;
+        case 'staging':
+            Configure::load('environments/staging', 'default');
+            break;
+        case 'production':
+            Configure::load('environments/production', 'default');
+            break;
+    }
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -220,3 +231,12 @@ Type::build('date')
 Type::build('datetime')
     ->useImmutable()
     ->useLocaleParser();
+
+
+$env = (isset($_SERVER['CAKE_ENV']) ? $_SERVER['CAKE_ENV'] : 'default');
+
+if ($env !== 'default')
+{
+    //デフォルト以外の場合はConnectionManagerのエイリアスを書き換え
+    ConnectionManager::alias($env, 'default');
+}
