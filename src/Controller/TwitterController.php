@@ -13,7 +13,17 @@ class TwitterController extends AppController
     public function index() {
         // Twitterアプリの設定画面で取得した値
         Configure::config('default', new PhpConfig());
-        Configure::load('oauth', 'default', false);
+        switch ( env('CAKEPHP_ENV') ) {
+            case 'development':
+                Configure::load('environments/oauth_development', 'default', false);
+                break;
+            case 'staging':
+                Configure::load('environments/oauth_production', 'default', false);
+                break;
+            case 'production':
+                Configure::load('environments/oauth_production', 'default', false);
+                break;
+        }
         $consumer_key = Configure::read('twitter.consumer_key');
         $consumer_secret = Configure::read('twitter.consumer_secret');
         // コールバックURL
@@ -30,7 +40,17 @@ class TwitterController extends AppController
 
     public function callback() {
         Configure::config('default', new PhpConfig());
-        Configure::load('oauth', 'default', false);
+        switch ( env('CAKEPHP_ENV') ) {
+            case 'development':
+                Configure::load('environments/oauth_development', 'default', false);
+                break;
+            case 'staging':
+                Configure::load('environments/oauth_production', 'default', false);
+                break;
+            case 'production':
+                Configure::load('environments/oauth_production', 'default', false);
+                break;
+        }
         $consumer_key = Configure::read('twitter.consumer_key');
         $consumer_secret = Configure::read('twitter.consumer_secret');
         // URLパラメータを取得する
