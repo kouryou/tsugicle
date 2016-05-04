@@ -225,9 +225,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'root',
-            'password' => '',
-            'database' => 'sample',
+            'username' => 'ryota',
+            'password' => 'grap44wb',
+            'database' => 'tsugiclebase',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -339,4 +339,8 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
+    'twitter' => [
+        'consumer_key' => 'F67G2huYukjjNYngTt3Y9WwNO',
+        'consumer_secret' => 'zLTOfApHf97JpE3GOuAxwj133SsY5E3q0CL5DpiWAijZU1NOoZ'
+    ]
 ];
