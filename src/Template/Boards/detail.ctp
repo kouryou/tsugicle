@@ -28,7 +28,7 @@
     <?php foreach ($boards as $board): ?>
         <div class="panel panel-info">
             <div class="panel-heading">
-                <?=$board->created ?>
+                <?=$board->created->i18nFormat('YYYY/MM/dd HH:mm') ?>
                 <span class="badge">
                     <?php if(isset($goods_count_array[$board->id])){
                         echo $goods_count_array[$board->id];

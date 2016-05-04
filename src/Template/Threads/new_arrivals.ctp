@@ -15,7 +15,7 @@
                     echo "0";
                 } ?>ツギクル
             </span>
-            <?= $thread->created ?>
+            <?= $thread->created->i18nFormat('YYYY/MM/dd HH:mm') ?>
         </div>
     </div>
 <?php endforeach ?>

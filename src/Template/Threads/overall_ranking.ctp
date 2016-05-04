@@ -12,7 +12,7 @@
             <span class="badge">
                 <?= $tsugicles_count_array[$thread_array->id] ?>ツギクル
             </span>
-            <?= $thread_array->created ?>
+            <?= $thread_array->created->i18nFormat('YYYY/MM/dd HH:mm') ?>
         </div>
     </div>
 <?php endforeach ?>
