@@ -18,8 +18,6 @@ class TwitterController extends AppController
         $callback = $callback = Router::url(['action'=>'callback'], true);
         // リクエストトークンを取得してセッションに保存する
         $connection = new TwitterOAuth($consumer_key, $consumer_secret);
-        $this->autoRender = false;
-
         $request_token = $connection->oauth('oauth/request_token',
             array('oauth_callback' => $callback));
         $this->request->session()->write('twitter.request_token', $request_token);
