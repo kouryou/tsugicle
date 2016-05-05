@@ -24,7 +24,7 @@
                                echo "0";
                            } ?>ツギクル
                        </span>
-                   <?= $thread->created->i18nFormat('YYYY/MM/dd HH:mm') ?>
+                   <?= $thread->created->modify('+9 hour')->i18nFormat('YYYY/MM/dd HH:mm') ?>
                </div>
            </div>
        <?php endforeach ?>

@@ -1,5 +1,5 @@
 <h1>ツギクルランキング</h1>
-<h4><span class="label label-success"><?= $collection_time ?>時点</span></h4>
+<h4><span class="label label-success"><?= $collection_time->modify('+9 hour')->i18nFormat('YYYY/MM/dd HH:mm') ?> 時点</span></h4>
 
 <?php foreach ($threads_array as $key => $thread_array): ?>
     <div class="panel panel-info">
@@ -12,7 +12,7 @@
             <span class="badge">
                 <?= $tsugicles_count_array[$thread_array->id] ?>ツギクル
             </span>
-            <?= $thread_array->created->i18nFormat('YYYY/MM/dd HH:mm') ?>
+            <?= $thread_array->created->modify('+9 hour')->i18nFormat('YYYY/MM/dd HH:mm') ?>
         </div>
     </div>
 <?php endforeach ?>

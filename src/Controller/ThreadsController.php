@@ -37,7 +37,7 @@ class threadsController extends AppController
             $threads_array[] = $threads->find()->where(['id' => $overall_ranking->thread_id])->first();
         }
 
-        $collection_time = $constant_first->value_column;
+        $collection_time = $overall_rankings->first()->collection_time;
 
         $this->set([
             'threads_array' => $threads_array,
