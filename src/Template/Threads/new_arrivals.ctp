@@ -1,6 +1,6 @@
 <h1>次くる<?= h($genre->title); ?></h1>
 
-<p><a class="btn btn-primary" href="<?= $this->Url->build(['controller'=>'Threads', 'action'=>'add', $genre->id]); ?>">項目追加 &raquo;</a></p>
+<p><a class="btn btn-primary" href="<?= $this->Url->build(['controller'=>'Threads', 'action'=>'add', $genre->id]); ?>">追加する &raquo;</a></p>
 
 <?php foreach ($threads as $thread): ?>
     <div class="panel panel-info">
