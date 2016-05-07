@@ -13,6 +13,7 @@
                 <?= $tsugicles_count_array[$thread_array->id] ?>ツギクル
             </span>
             <?= $thread_array->created->modify('+9 hour')->i18nFormat('YYYY/MM/dd HH:mm') ?>
+            <span class="label label-info"><?= $thread_array->tag ?></span>
         </div>
     </div>
 <?php endforeach ?>

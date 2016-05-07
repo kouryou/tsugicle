@@ -73,32 +73,32 @@ class threadsController extends AppController
         ]);
     }
 
-    public function add($genre_id='')
+    public function add()
     {
-        $this->set([
-            'genre_id' => $genre_id
-        ]);
-
         $this->LoginCheck->loginCheck();
+        $genres = TableRegistry::get('Genres');
+        $genres = $genres->find();
+        $this->set([
+            'genres' => $genres,
+        ]);
 
         if($this->request->is('post')){
             $threads = TableRegistry::get('Threads');
-            $genres = TableRegistry::get('Genres');
             $validator = new Validator();
             $validator->add('title','length',['rule'=>['maxLength',30]]);
             $errors = $validator->errors($this->request->data);
             if(empty($errors)){
-                $genre = $genres->find()->where(['id' => $genre_id])->first();
-                if($threads->query()->insert(['user_id', 'genre_id', 'title', 'modified', 'created'])
+                if($threads->query()->insert(['user_id', 'genre_id', 'title', 'tag', 'modified', 'created'])
                     ->values([
                     'user_id' => $this->Session->read('access_token.user_id'),
-                    'genre_id' => $genre_id,
+                    'genre_id' => $this->request->data['genre_id'],
                     'title' => $this->request->data['title'],
+                    'tag' => $this->request->data['tag'],
                     'modified' => date('Y/m/d H:i:s'),
                     'created' => date('Y/m/d H:i:s')
                     ])->execute()){
                     $this->Flash->success('投稿しました');
-                    return $this->redirect(['controller'=>'Threads', 'action'=>'newArrivals', $genre_id]);
+                    return $this->redirect(['controller'=>'Top', 'action'=>'index']);
                 } else {
                     $this->Flash->error('投稿に失敗しました');
                 }

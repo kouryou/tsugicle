@@ -1,6 +1,8 @@
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
-  <h1>ツギクルへようこそ</h1>
+    <div class="page-header">
+        <h1>ツギクル <small>トレンド先どり投稿サイト</small></h1>
+    </div>
   <?php if(isset($user_id)): ?>
       <p><?=$screen_name ?> さんこんにちは</p>
       <a class="btn btn-lg btn-primary" href="<?php echo $this->Url->build(['controller'=>'Twitter', 'action'=>'logout']); ?>" role="button">ログアウト &raquo;</a>
@@ -25,6 +27,7 @@
                            } ?>ツギクル
                        </span>
                    <?= $thread->created->modify('+9 hour')->i18nFormat('YYYY/MM/dd HH:mm') ?>
+                   <span class="label label-info"><?= $thread->tag ?></span>
                </div>
            </div>
        <?php endforeach ?>
