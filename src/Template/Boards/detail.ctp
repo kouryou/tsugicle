@@ -7,7 +7,7 @@
                     echo "btn btn-warning";
                 }else{
                     echo "btn btn-default";
-                }?>">ツギクル</button>
+                }?>">ツギクル！</button>
     </form>
     <br>
     <hr>
@@ -17,6 +17,7 @@
     }else{
         echo '現在情報はありません';
     } ?></p>
+    <p>タグ： <span class="label label-info"><?= $thread->tag ?></span></p>
     <p><a class="btn btn-sm btn-primary" href="<?= $this->Url->build(['controller'=>'Boards', 'action'=>'editInformation', $thread->id]); ?>">編集 &raquo;</a></p>
 
 </div>
